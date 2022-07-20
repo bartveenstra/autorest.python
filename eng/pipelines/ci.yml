@@ -21,7 +21,8 @@ variables:
   TestFolder: "$(Build.SourcesDirectory)/autorest.python/test/"
   AUTOREST_TESTSERVER_COVERAGE_DIRECTORY: "$(Build.SourcesDirectory)/autorest.python/coverage/"
   PROXY_URL: "http://localhost:5000"
-  PROXY_MANUAL_START: true
+  PROXY_MANUAL_START: "true"
+  AZURE_TEST_RUN_LIVE: "false"
 
 parameters:
   - name: VerificationPackages
