@@ -20,7 +20,7 @@ variables:
   PythonVersion: "3.7"
   TestFolder: "$(Build.SourcesDirectory)/autorest.python/test/"
   AUTOREST_TESTSERVER_COVERAGE_DIRECTORY: "$(Build.SourcesDirectory)/autorest.python/coverage/"
-  PROXY_URL: http://localhost:5000
+  PROXY_URL: "http://localhost:5000"
   PROXY_MANUAL_START: true
 
 parameters:
