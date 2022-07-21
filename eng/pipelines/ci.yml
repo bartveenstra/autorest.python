@@ -95,5 +95,7 @@ jobs:
           - ${{ each package in parameters.VerificationPackages }}:
               - script: |
                   cd $(Build.SourcesDirectory)/regenerated/sdk/${{ package.service }}/${{ package.name }}
-                  tox -e whl -c ../../../eng/tox/tox.ini
+                  ls
+                  echo -----------------------------------
+                  ls recordings/
                 displayName: "Run tests for ${{ package.name }}"
