@@ -97,5 +97,5 @@ jobs:
                   cd $(Build.SourcesDirectory)/regenerated/sdk/${{ package.service }}/${{ package.name }}
                   ls
                   echo -----------------------------------
-                  ls recordings/
+                  ls tests/recordings/
                 displayName: "Run tests for ${{ package.name }}"
