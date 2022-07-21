@@ -61,6 +61,8 @@ jobs:
     steps:
       - checkout: self
       - checkout: azure-sdk-tools
+      - script:
+          mkdir $(Build.SourcesDirectory)/regenerated/
       - template: eng/common/testproxy/test-proxy-tool.yml@azure-sdk-tools
         parameters:
           TestProxy: true
