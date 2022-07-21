@@ -65,6 +65,7 @@ jobs:
         parameters:
           TestProxy: true
           templateRoot: azure-sdk-tools
+          rootFolder: $(Build.SourcesDirectory)/regenerated/
       - task: NodeTool@0
         displayName: "Install Node.js $(NodeVersion)"
         inputs:
