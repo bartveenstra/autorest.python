@@ -61,13 +61,10 @@ jobs:
     steps:
       - checkout: self
       - checkout: azure-sdk-tools
-      - script:
-          mkdir $(Build.SourcesDirectory)/regenerated/
       - template: eng/common/testproxy/test-proxy-tool.yml@azure-sdk-tools
         parameters:
           TestProxy: true
           templateRoot: azure-sdk-tools
-          rootFolder: $(Build.SourcesDirectory)/regenerated/
       - task: NodeTool@0
         displayName: "Install Node.js $(NodeVersion)"
         inputs:
@@ -86,16 +83,16 @@ jobs:
 
       - ${{ if eq(ne(variables['Build.Reason'], 'PullRequest'), 'True') }}:
           - script: |
-              git clone https://github.com/Azure/azure-sdk-for-python.git --depth=1 --branch main $(Build.SourcesDirectory)/regenerated/
+              git clone https://github.com/Azure/azure-sdk-for-python.git --depth=1 --branch main $(Build.SourcesDirectory)
             displayName: "Clone python repo"
 
           - script: |
               pip install tox-monorepo
             displayName: "Prepare environment"
-            workingDirectory: "$(Build.SourcesDirectory)/regenerated/"
+            workingDirectory: "$(Build.SourcesDirectory)/"
 
           - ${{ each package in parameters.VerificationPackages }}:
               - script: |
-                  cd $(Build.SourcesDirectory)/regenerated/sdk/${{ package.service }}/${{ package.name }}
+                  cd $(Build.SourcesDirectory)/sdk/${{ package.service }}/${{ package.name }}
                   tox -e whl -c ../../../eng/tox/tox.ini
                 displayName: "Run tests for ${{ package.name }}"
