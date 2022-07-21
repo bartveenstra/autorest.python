@@ -83,16 +83,17 @@ jobs:
 
       - ${{ if eq(ne(variables['Build.Reason'], 'PullRequest'), 'True') }}:
           - script: |
-              git clone https://github.com/Azure/azure-sdk-for-python.git --depth=1 --branch main $(Build.SourcesDirectory)
+              git clone https://github.com/Azure/azure-sdk-for-python.git --depth=1 --branch main $(Build.SourcesDirectory)/regenerated/
+              ls $(Build.SourcesDirectory)/regenerated/
             displayName: "Clone python repo"
 
           - script: |
               pip install tox-monorepo
             displayName: "Prepare environment"
-            workingDirectory: "$(Build.SourcesDirectory)/"
+            workingDirectory: "$(Build.SourcesDirectory)/regenerated/"
 
           - ${{ each package in parameters.VerificationPackages }}:
               - script: |
-                  cd $(Build.SourcesDirectory)/sdk/${{ package.service }}/${{ package.name }}
+                  cd $(Build.SourcesDirectory)/regenerated/sdk/${{ package.service }}/${{ package.name }}
                   tox -e whl -c ../../../eng/tox/tox.ini
                 displayName: "Run tests for ${{ package.name }}"
